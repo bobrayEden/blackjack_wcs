@@ -91,6 +91,7 @@ public class BlackJack{
     //Initialiser le score total de Player
     int playerScore = 0;
     int playerCardCount = 0;
+
     //Initialiser le score total de Dealer
     int dealerScore = 0;
     int dealerCardCount = 0;
@@ -184,7 +185,7 @@ public class BlackJack{
         if (playerScore > 21) {
           System.out.println("Your current score is : " + playerScore);
           System.out.println("You are a great loser, try again mate, the bank always wins...");
-        break;
+          break;
       } else if (playerScore == 21) {
         continue;
       };
@@ -198,61 +199,64 @@ public class BlackJack{
          System.out.println("Do You want to draw a new card ? (y to continue, n to stop)");
          answer = newDraw.next();
         }
+
       };
       System.out.println("You stopped drawing cards with a score of " + playerScore);
 
       //Phase 4 : Tour du dealer
 
       //révéler la carte cachée (mais pour l'instant elle ne l'est pas donc...)
-      cardScore = drawScore(hiddenDraw);
-      dealerScore = dealerScore + cardScore;
-      if (hiddenDraw < 4) {
-        System.out.println("The Dealer reveals his hidden card and it's an Ace of " + suits[hiddenDraw] + "!!");
-      } else if (hiddenDraw >= 40 && hiddenDraw <= 43) {
-        System.out.println("The Dealer reveals his hidden card and it's a Jack of " + suits[hiddenDraw] + "!!");
-      } else if (hiddenDraw >= 44 && hiddenDraw <= 47) {
-        System.out.println("The Dealer reveals his hidden card and it's a Queen of " + suits[hiddenDraw] + "!!");
-      } else if (hiddenDraw > 47) {
-        System.out.println("The Dealer reveals his hidden card and it's a King of " + suits[hiddenDraw] + "!!");
-      } else {
-      System.out.println("The Dealer reveals his hidden card, and it's a " + ranks[hiddenDraw] + " of " + suits[hiddenDraw] + "!!" );
-      }
-      System.out.println("The Dealer score is " + dealerScore + "!!");
-      while (dealerScore < 17) {
-        draw = drawCardDealer();
-        dealerCardCount++;
-        if (draw <= 3 && dealerScore >= 6 && dealerScore <=10) {
-          cardScore = 11;
-          System.out.println("Wow, the Dealer drew a critical Ace !!");
-        } else {
-          cardScore = drawScore(draw);
-        };
+      if (playerScore <= 21) {
+        cardScore = drawScore(hiddenDraw);
         dealerScore = dealerScore + cardScore;
-        System.out.println("Dealer current score is : " + dealerScore);
-      };
-
-      // Phase de résolution de la partie
-
-      if (dealerScore > 21) {
-        System.out.println("Your final score is " + playerScore + " and Dealer final score is " + dealerScore + " !");
-        System.out.println("Wow, Dude, so much skill... but don't be cocky, Friend.");
-      } else {
-        if (dealerScore > playerScore) {
-          System.out.println("Your final score is " + playerScore + " and Dealer final score is " + dealerScore + " !");
-          System.out.println("Good try Buddy, but you owe me money..!");
-        } else if (playerScore > dealerScore) {
-          System.out.println("Player final score is " + playerScore + " and Dealer final score is " + dealerScore + " !");
-          System.out.println("Hey, Player won, Joe, have you checked that he did not cheat ??");
-        } else if (playerScore == dealerScore && playerScore != 21) {
-          System.out.println("Your final score is " + playerScore + " and Dealer final score is " + dealerScore + " !");
-          System.out.println("It's a tie, fair for everyone, but please, play again !!");
-        } else if (playerScore == dealerScore && playerScore == 21) {
-          if (playerCardCount == 2 && dealerCardCount != 2) {
-            System.out.println("BlackJack !! Critical hit, the Dealer is on the ground & You win !!");
-          } else if (playerCardCount !=2 && dealerCardCount == 2) {
-            System.out.println("What ? How can You say the Dealer is cheating ? Joe, take this gentleman out of my casino ! (player loses)");
+        if (hiddenDraw < 4) {
+          System.out.println("The Dealer reveals his hidden card and it's an Ace of " + suits[hiddenDraw] + "!!");
+        } else if (hiddenDraw >= 40 && hiddenDraw <= 43) {
+          System.out.println("The Dealer reveals his hidden card and it's a Jack of " + suits[hiddenDraw] + "!!");
+        } else if (hiddenDraw >= 44 && hiddenDraw <= 47) {
+          System.out.println("The Dealer reveals his hidden card and it's a Queen of " + suits[hiddenDraw] + "!!");
+        } else if (hiddenDraw > 47) {
+          System.out.println("The Dealer reveals his hidden card and it's a King of " + suits[hiddenDraw] + "!!");
+        } else {
+        System.out.println("The Dealer reveals his hidden card, and it's a " + ranks[hiddenDraw] + " of " + suits[hiddenDraw] + "!!" );
+        }
+        System.out.println("The Dealer score is " + dealerScore + "!!");
+        while (dealerScore < 17) {
+          draw = drawCardDealer();
+          dealerCardCount++;
+          if (draw <= 3 && dealerScore >= 6 && dealerScore <=10) {
+            cardScore = 11;
+            System.out.println("Wow, the Dealer drew a critical Ace !!");
           } else {
-            System.out.println("Ultimate tie : both parties scored 21, now, guess who is cheating...");
+            cardScore = drawScore(draw);
+          };
+          dealerScore = dealerScore + cardScore;
+          System.out.println("Dealer current score is : " + dealerScore);
+        };
+
+        // Phase de résolution de la partie
+
+        if (dealerScore > 21) {
+          System.out.println("Your final score is " + playerScore + " and Dealer final score is " + dealerScore + " !");
+          System.out.println("Wow, Dude, so much skill... but don't be cocky, Friend.");
+        } else {
+          if (dealerScore > playerScore) {
+            System.out.println("Your final score is " + playerScore + " and Dealer final score is " + dealerScore + " !");
+            System.out.println("Good try Buddy, but you owe me money..!");
+          } else if (playerScore > dealerScore) {
+            System.out.println("Player final score is " + playerScore + " and Dealer final score is " + dealerScore + " !");
+            System.out.println("Hey, Player won, Joe, have you checked that he did not cheat ??");
+          } else if (playerScore == dealerScore && playerScore != 21) {
+            System.out.println("Your final score is " + playerScore + " and Dealer final score is " + dealerScore + " !");
+            System.out.println("It's a tie, fair for everyone, but please, play again !!");
+          } else if (playerScore == dealerScore && playerScore == 21) {
+            if (playerCardCount == 2 && dealerCardCount != 2) {
+              System.out.println("BlackJack !! Critical hit, the Dealer is on the ground & You win !!");
+            } else if (playerCardCount !=2 && dealerCardCount == 2) {
+              System.out.println("What ? How can You say the Dealer is cheating ? Joe, take this gentleman out of my casino ! (player loses)");
+            } else {
+              System.out.println("Ultimate tie : both parties scored 21, now, guess who is cheating...");
+            }
           }
         }
       }
