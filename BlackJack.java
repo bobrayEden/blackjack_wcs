@@ -184,7 +184,7 @@ public class BlackJack{
         if (playerScore > 21) {
           System.out.println("Your current score is : " + playerScore);
           System.out.println("You are a great loser, try again mate, the bank always wins...");
-        return;
+        break;
       } else if (playerScore == 21) {
         continue;
       };
